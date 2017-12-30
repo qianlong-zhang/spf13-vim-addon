@@ -72,6 +72,7 @@ if has("cscope")
 endif
 
 set cscopequickfix=s-,c-,i-,t-,e-
+set paste
 nmap <F6> :cn<cr>
 nmap <F7> :cp<cr>
 
