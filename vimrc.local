@@ -74,6 +74,7 @@ endif
 
 set cscopequickfix=s-,c-,i-,t-,e-
 set paste
+set nolist   "not display space and tab, "set list" to display
 nmap <F6> :cn<cr>
 nmap <F7> :cp<cr>
 
