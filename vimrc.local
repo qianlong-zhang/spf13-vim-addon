@@ -79,3 +79,6 @@ nmap <F6> :cn<cr>
 nmap <F7> :cp<cr>
 
 "}
+
+vmap <C_x> :!pbcopy<CR>
+vmap <C_c> :W !pbcopy<CR><CR>
