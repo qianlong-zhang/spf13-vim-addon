@@ -16,6 +16,10 @@ set fileencodings=utf-8,gbk,latin-1
 "set t_Co=256 "如果是在模拟终端需要把颜色设置成256色
 
 
+"tab=四个空格
+set ts=4
+set expandtab
+set autoindent
 
 
 "if has("cscope")
