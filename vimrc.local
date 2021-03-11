@@ -5,6 +5,8 @@ set mouse=
 let g:AutoPairs = {}
 let g:syntastic_quiet_messages = { "type": "style" }
 let g:pymode = 0
+" make vim not transfer clipboard to display
+set clipboard=exclude:.*
 set wrap
 
 "编码设置
