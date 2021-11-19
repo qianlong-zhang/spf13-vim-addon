@@ -1,0 +1,242 @@
+execute pathogen#infect()
+syntax on
+filetype plugin indent on
+
+
+"---------------------------------------------------------------------------------------------
+set cmdheight=1 " 设定命令行的行数为 1
+set laststatus=2 " show the file name on bottom bar of vim editor
+set nocompatible
+set nu
+set history=680
+set autoread
+set so=0 " set so=8 always has 8 line distance with top and bottom
+set wildmenu
+set ruler
+set wildignore=*.o,*~,*.pyc
+set hid
+set backspace=eol,start,indent
+set smartcase
+set hlsearch
+set incsearch
+set lazyredraw
+set magic
+set showmatch
+set mat=2
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+set ffs=unix,dos,mac
+set nobackup
+set nowb
+set noswapfile
+set expandtab
+set smarttab
+set shiftwidth=4
+set tabstop=4
+set lbr
+set tw=500
+set ai 
+set si
+set wrap
+set cursorline
+set cursorcolumn
+"" Change menu/ui language of vim to english 
+set langmenu=en_US.UTF-8
+" search case-insensitive.
+"set ignorecase  
+set dictionary=~/.vim/dict/KeywordDict.vim
+
+"for chinese character
+set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+set termencoding=utf-8
+set encoding=utf-8
+" prevent 'scanning include file ...' come out
+set complete-=i
+"---------------------------------------------------------------------------------------------
+"" set line and cloumn highligt
+language messages en_US.UTF-8
+
+
+set t_Co=256
+colorscheme solarized8_dark
+set guifont=Monospace\ 16
+
+
+
+:match ErrorMsg /\<FIXME\>/
+:match WildMenu /\<INSTERESTING\>/ 
+:match Pmenu /\<IMPORTANT\>/ 
+
+"---------------------------------------------------------------------------------------------
+"---------------------------------------------------------------------------------------------
+"if not in gui
+if !has("gui_runing")
+    set cursorline
+    hi CursorLine term=bold cterm=bold ctermbg=DarkGrey
+endif
+
+
+"---------------------------------------------------------------------------------------------
+" abbreviation
+"  - normal mode
+abb p2.. !python2.7 %
+abb p3.. !python3.6 %
+abb utf.. # -*- coding: UTF-8 -*-
+abb /p.. #! /usr/bin/python
+abb /c.. #! /bin/csh
+abb W w
+abbr wwq  wq!
+abbr ww   w!
+abbr qq  q!
+abbr vvim vs ~/.vimrc
+abbr vali vs ~/.cshrc_alias
+abbr vcsh vs ~/.cshrc
+abbr vdic vs ~/.vim/dict/KeywordDict.vim
+abbr lan.. "\033[1;36m \033[0m"
+abbr sts setf verilog_systemverilog
+abbr stt setf tcsh
+" - insert mode
+inoreabbr dsp..  $display("\033[1;36m \033[0m",);
+inoreabbr for.. for (int i=0; i<N; i++) begin<CR>end
+inoreabbr py.. #! /usr/bin/python2.7
+" inoreabbr, cnoreabbr, nnoreabbr will not be influenced by previous set abbr
+" inoremap, cnoremap, nnoremap will not be influenced by previous set map
+inoreabbr ll.. sys._getframe().f_lineno
+inoreabbr blue.. "\033[1;36m\033[0m"<left><left><left><left><left><left><left><left>
+" - command mode
+cabbr vvi..  vs ~/.vimrc
+cabbr t.. tabnew
+"---------------------------------------------------------------------------------------------
+" Key Map
+" - Insert mode map
+imap <c-l> <right>
+imap <c-h> <left>
+imap <c-k> <up>
+imap <c-j> <down>
+imap <c-s> <Esc> :w<CR>
+imap jj <ESC>
+imap [ []<left>
+imap { {}<left>
+imap ( ()<left>
+" - Normal-Mode map
+nmap <c-k> :res -5<CR>
+nmap <c-j>   :res +5<CR>
+nmap <c-l> : vertical res +5<CR>
+nmap <c-h> : vertical res -5<CR>
+nmap <c-s> : w<CR>
+nmap ,k :nohlsearch<CR>
+
+nmap <F5> <ESC>:w<CR>:!python2.7 %<CR>
+imap <F5> <ESC>:w<CR>:!python2.7 %<CR>
+cmap <F5> <ESC>:w<CR>:!python2.7 %<CR>
+
+inoremap <S-Insert><ESC>:setl paste<CR>gi<C-R>+<ESC>:setl nopaste<CR>gi
+
+"---------------------------------------------------------------------------------------------
+" github:rkulla/pydiction configuration 
+let g:pydiction_location = '/home/whale/.vim/bundle/pydiction/complete-dict'
+let g:pydiction_menu_height = 3
+
+
+"---------------------------------------------------------------------------------------------
+" FileType Set 
+autocmd BufRead .cshrc set filetype=tcsh
+autocmd BufRead .local_alias set filetype=tcsh
+
+autocmd BufRead,BufNewFile *.sv,*.v,*.f,*.svh setf verilog_systemverilog
+autocmd BufRead,BufNewFile *.asm,*.s,*.S set filetype=asm
+
+autocmd FileType python set dictionary=~/.vim/dict/python.dict
+autocmd FileType verilog_systemverilog set dictionary=~/.vim/dict/verilog_systemverilog.dict
+
+"setf verilog_systemverilog
+"---------------------------------------------------------------------------------------------
+" My Function 
+"  - Setfilehead() : write head string when create new *.sv ect file
+"
+autocmd BufNewFile *.v,*.sv,*.svh,*.c,*.h exec ":call Setfilehead()"
+func Setfilehead()
+call append(0, '//!***************************************************************************//')
+call append(1, '//!  Copyright (c) 2020 - 2021 by Sophgo Inc.')
+call append(2, '//!  ')
+call append(3, '//!     FileName    : '.expand("%:t"))
+call append(4, '//!     ')
+call append(5, '//!     Author      : '.expand("$USER"))
+call append(6, '//!     Versrion    : v1.0')
+call append(7, '//!     Update      : '.strftime("%Y-%m-%d %H:%M:%S")." - first version v1.0")
+call append(8, '//!')
+call append(9, '//!     Description : ')
+call append(10,'//!')
+call append(11,'//!***************************************************************************//')
+call append(12, '')
+call append(13, '`ifndef __'.toupper(expand("%:t:r")).('__'))
+call append(14, '`define __'.toupper(expand("%:t:r")).('__'))
+call append(15, '')
+call append(16, '')
+call append(17, '`endif')
+endfunc
+"---------------------------------------------------------------------------------------------
+" My Function 
+"  - Setfilehead() : write head string when create new *.py ect file
+"
+autocmd BufNewFile *.py exec ":call SetPythonHead()"
+func SetPythonHead()
+call append(0, '#! /usr/bin/python2.7')
+call append(1, 'help_str = """')
+call append(2, '#-------------------------------------------------------------------------------#')
+call append(3, '# Cmd Ex:')
+call append(4, '#       ./'.expand("%:t"))
+call append(5, '# ')
+call append(6, '# Comment: '.strftime("%Y-%m-%d %H:%M:%S"))
+call append(7, '#')
+call append(8, '#-------------------------------------------------------------------------------#"""')
+call append(9, 'import os')
+call append(10, 'import re')
+call append(11, 'import sys')
+call append(12, 'if len(sys.argv)==2:')
+call append(13, '    if sys.argv[1]=="help": sys.exit(help_str)')
+call append(14, '')
+call append(15, '')
+call append(16, '')
+call append(17, '')
+call append(18, '#=============================== MAIN FUNCTION =================================#')
+call append(19, 'if __name__ == "__main__":')
+call append(20, '    pass')
+endfunc
+"---------------------------------------------------------------------------------------------
+" My Function 
+" - CompileRunGcc : execute the script which are being edited. 
+"
+:command EX  call CompileRunGcc()
+func! CompileRunGcc()
+    exec "w"
+    if &filetype == 'c'
+                exec "!g++ % -o %<"
+                exec "!time ./%<"
+    elseif &filetype == 'cpp'
+                exec "!g++ % -o %<"
+                exec "!time ./%<"
+    elseif &filetype == 'java'
+                exec "!javac %"
+                exec "!time java %<"
+    elseif &filetype == 'sh'
+                :!time bash %
+    elseif &filetype == 'python'
+                exec "!time python %"
+    elseif &filetype == 'html'
+                exec "!firefox % &"
+    elseif &filetype == 'go'
+                exec "!time go run %"
+    elseif &filetype == 'mkd'
+                exec "!~/.vim/markdown.pl % > %.html &"
+                exec "!firefox %.html &"
+    endif
+endfunc
+
+
+"---------------------------------------------------------------------------------------------
+
+
+
