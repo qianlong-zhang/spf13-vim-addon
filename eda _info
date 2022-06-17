@@ -1,0 +1,31 @@
+#Synopsys
+export DVE_HOME=/home/zql/tools/synopsys_install/vcs/vcs/vcs/O-2018.09-SP2
+export VCS_HOME=/home/zql/tools/synopsys_install/vcs/vcs/vcs/O-2018.09-SP2
+export VCS_MX_HOME=/home/zql/tools/synopsys_install/vcs/vcs-mx/O-2018.09-SP2
+export
+LD_LIBRARY_PATH=/home/zql/tools/synopsys_install/verdi/verdi/Verdi_O-2018.09-SP2/share/PLI/VCS/LINUX64
+export VERDI_HOME=/home/zql/tools/synopsys_install/verdi/verdi/Verdi_O-2018.09-SP2
+export SCL_HOME=/home/zql/tools/synopsys_install/scl_2018/scl/2018.06
+
+#export PATH=$PATH:$SCL_HOME/linux64/bin
+
+#dve
+export PATH=$PATH:$VCS_HOME/gui/dve/bin
+alias dve="dve -full64"
+#/home/zql/tools/synopsys_install/vcs/vcs/vcs/O-2018.09-SP2/gui/dve/bin/
+
+#VCS
+export PATH=$PATH:$VCS_HOME/bin
+alias vcs="vcs"
+
+#VERDI
+export PATH=$PATH:$VERDI_HOME/bin
+alias verdi="verdi"
+
+#scl
+export PATH=$PATH:$SCL_HOME/linux64/bin
+export VCS_ARCH_OVERRIDE=linux
+
+#LICENCE
+export LM_LICENSE_FILE=27000@zqlserver
+alias lmg_synopsys="lmgrd -c /home/zql/tools/synopsys_install/scl_2018/scl/2018.06/admin/license/synopsys.dat"
